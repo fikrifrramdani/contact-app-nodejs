@@ -31,10 +31,36 @@ yargs.command({
 		// };
 		// console.log(contact);
 	}
+}).demandCommand();
+
+// menampilkan daftar nama kontak
+yargs.command({
+	command: 'list',
+	describe: 'Menampilkan semua nama & nomor hp',
+	handler() {
+		contacts.listContact();
+	}
 });
 
-yargs.parse();
+// menampilkan detail kontak
+yargs.command({
+	command: 'list',
+	describe: 'Menampilkan detail kontak berdasarkan nama',
+	builder: {
+		nama: {
+			describe: 'Nama lengkap',
+			demandOption: true,
+			type: 'string'
+		}
+	},
 
+	handler(argv) {
+		contacts.detailContact(argv.nama);
+	}
+});
+
+
+yargs.parse();
 
 // mengambil argumet dari command line
 // console.log(process.argv);
