@@ -2,35 +2,35 @@ const yargs = require("yargs");
 const contacts = require("./contacts");
 
 yargs.command({
-   command: 'add',
-   describe: 'Menambahkan kontak baru',
-   builder: {
-      nama: {
-         describe: 'Nama lengkap',
-         demandOption: true,
-         type: 'string'
-      },
-      email: {
-         describe: 'Alamat email',
-         demandOption: false,
-         type: 'string'
-      },
-      noHP: {
-         describe: 'Nomor handphone',
-         demandOption: true,
-         type: 'string'
-      }
-   },
+	command: 'add',
+	describe: 'Menambahkan kontak baru',
+	builder: {
+		nama: {
+			describe: 'Nama lengkap',
+			demandOption: true,
+			type: 'string'
+		},
+		email: {
+			describe: 'Alamat email',
+			demandOption: false,
+			type: 'string'
+		},
+		noHP: {
+			describe: 'Nomor handphone',
+			demandOption: true,
+			type: 'string'
+		}
+	},
 
-   handler(argv) {
-      contacts.simpanContact(argv.nama, argv.email, argv.noHP);
-      // const contact = {
-      //    nama: argv.nama,
-      //    email: argv.email,
-      //    noHP: argv.noHP
-      // };
-      // console.log(contact);
-   }
+	handler(argv) {
+		contacts.simpanContact(argv.nama, argv.email, argv.noHP);
+		// const contact = {
+		//    nama: argv.nama,
+		//    email: argv.email,
+		//    noHP: argv.noHP
+		// };
+		// console.log(contact);
+	}
 });
 
 yargs.parse();
