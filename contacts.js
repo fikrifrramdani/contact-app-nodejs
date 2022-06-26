@@ -1,5 +1,7 @@
 // File System
 const fs = require('fs');
+const chalk = require('chalk');
+const validator = require('validator');
 
 // // Readline
 // const readline = require('readline');
@@ -45,15 +47,30 @@ const simpanContact = (nama, email, noHP) => {
 	// cek duplikasi
 	const duplikat = contacts.find((contact) => contact.nama === nama);
 	if (duplikat) {
-		console.log('Contact sudah terdaftar, gunakan nama lain');
+		console.log(chalk.red.inverse.bold('Contact sudah terdaftar, gunakan nama lain!'));
 		return false;
 	}
+
+	// cek email
+	if (email) {
+		if (!validator.isEmail(email)) {
+			console.log(chalk.red.inverse.bold('Email tidak valid!'));
+			return false;
+		}
+	}
+
+	// cek email
+	if (noHP) {
+		if (!validator.isMobilePhone(noHP, 'id-ID')) {
+			console.log(chalk.red.inverse.bold('Nomor hp tidak valid!'));
+			return false;
+		}
+	}
+
 	contacts.push(contact);
 
 	fs.writeFileSync('data/contacts.json', JSON.stringify(contacts));
-	console.log('Terimakasih telah menambahkan data.');
+	console.log(chalk.green.inverse.bold('Terimakasih telah menambahkan data.'));
 }
 
-module.exports = {
-	simpanContact
-}
+module.exports = { simpanContact }
