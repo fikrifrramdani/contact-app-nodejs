@@ -2,63 +2,79 @@ const yargs = require("yargs");
 const contacts = require("./contacts");
 
 yargs.command({
-	command: 'add',
-	describe: 'Menambahkan kontak baru',
-	builder: {
-		nama: {
-			describe: 'Nama lengkap',
-			demandOption: true,
-			type: 'string'
-		},
-		email: {
-			describe: 'Alamat email',
-			demandOption: false,
-			type: 'string'
-		},
-		noHP: {
-			describe: 'Nomor handphone',
-			demandOption: true,
-			type: 'string'
-		}
-	},
+  command: 'add',
+  describe: 'Menambahkan kontak baru',
+  builder: {
+    nama: {
+      describe: 'Nama lengkap',
+      demandOption: true,
+      type: 'string'
+    },
+    email: {
+      describe: 'Alamat email',
+      demandOption: false,
+      type: 'string'
+    },
+    noHP: {
+      describe: 'Nomor handphone',
+      demandOption: true,
+      type: 'string'
+    }
+  },
 
-	handler(argv) {
-		contacts.simpanContact(argv.nama, argv.email, argv.noHP);
-		// const contact = {
-		//    nama: argv.nama,
-		//    email: argv.email,
-		//    noHP: argv.noHP
-		// };
-		// console.log(contact);
-	}
+  handler(argv) {
+    contacts.simpanContact(argv.nama, argv.email, argv.noHP);
+    // const contact = {
+    //    nama: argv.nama,
+    //    email: argv.email,
+    //    noHP: argv.noHP
+    // };
+    // console.log(contact);
+  }
 }).demandCommand();
 
 // menampilkan daftar nama kontak
 yargs.command({
-	command: 'list',
-	describe: 'Menampilkan semua nama & nomor hp',
-	handler() {
-		contacts.listContact();
-	}
+  command: 'list',
+  describe: 'Menampilkan semua nama & nomor hp',
+  handler() {
+    contacts.listContact();
+  }
 });
 
 // menampilkan detail kontak
 yargs.command({
-	command: 'list',
-	describe: 'Menampilkan detail kontak berdasarkan nama',
-	builder: {
-		nama: {
-			describe: 'Nama lengkap',
-			demandOption: true,
-			type: 'string'
-		}
-	},
+  command: 'list',
+  describe: 'Menampilkan detail kontak berdasarkan nama',
+  builder: {
+    nama: {
+      describe: 'Nama lengkap',
+      demandOption: true,
+      type: 'string'
+    }
+  },
 
-	handler(argv) {
-		contacts.detailContact(argv.nama);
-	}
+  handler(argv) {
+    contacts.detailContact(argv.nama);
+  }
 });
 
+// menghapus contact berdasarkan nama
+yargs.command({
+  command: 'delete',
+  describe: 'Menghapus kontak berdasarkan nama',
+  builder: {
+    nama: {
+      describe: 'Nama lengkap',
+      demandOption: true,
+      type: 'string'
+    }
+  },
+
+  handler(argv) {
+    contacts.deleteContact(argv.nama);
+  }
+});
 
 yargs.parse();
 
